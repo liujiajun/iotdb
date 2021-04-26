@@ -89,6 +89,7 @@ public class MultiFileLogNodeManager implements WriteLogNodeManager, IService {
       } else {
         node.initBuffer(supplier.get());
       }
+      logger.info("Created a log node: {}", identifier);
     }
     return node;
   }
@@ -98,6 +99,7 @@ public class MultiFileLogNodeManager implements WriteLogNodeManager, IService {
     WriteLogNode node = nodeMap.remove(identifier);
     if (node != null) {
       consumer.accept(node.delete());
+      logger.info("Deleted a log node: {}", identifier);
     }
   }
 
