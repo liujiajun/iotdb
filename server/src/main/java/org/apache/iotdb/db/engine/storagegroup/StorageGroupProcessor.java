@@ -311,7 +311,8 @@ public class StorageGroupProcessor {
       }
     }
     logger.info(
-        "Thread {} retrieves a WAL buffer {}, pool size: {}/{}",
+        "[{}] Thread {} retrieves a WAL buffer {}, pool size: {}/{}",
+        logicalStorageGroupName,
         Thread.currentThread(),
         res,
         walByteBufferPool.size(),
@@ -333,7 +334,8 @@ public class StorageGroupProcessor {
       walByteBufferPool.addLast(byteBuffers[1]);
       walByteBufferPool.notifyAll();
       logger.info(
-          "Thread {} releases a WAL buffer {}, pool size: {}/{}",
+          "[{}] Thread {} releases a WAL buffer {}, pool size: {}/{}",
+          logicalStorageGroupName,
           Thread.currentThread(),
           byteBuffers,
           walByteBufferPool.size(),
@@ -359,7 +361,8 @@ public class StorageGroupProcessor {
         MmapUtil.clean((MappedByteBuffer) walByteBufferPool.removeLast());
         currentWalPoolSize -= 2;
         logger.info(
-            "Thread {} trims a WAL buffer , pool size: {}/{}",
+            "[{}] Thread {} trims a WAL buffer , pool size: {}/{}",
+            logicalStorageGroupName,
             Thread.currentThread(),
             walByteBufferPool.size(),
             currentWalPoolSize);
